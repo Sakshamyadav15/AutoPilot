@@ -1,0 +1,15 @@
+# Node / frontend
+node_modules/
+.next/
+.vite/
+
+# Python / backend
+backend/venv/
+__pycache__/
+*.py[cod]
+
+# Local IDE
+.vscode/
+
+# Local docs (do not track Word docs)
+docs/*.docx
