@@ -1,0 +1,181 @@
+﻿python : 
+INFO:__main__:Connecting to 
+MongoDB for seeding data...
+At line:1 char:26
++ .\venv\Scripts\activate; 
+python seed_mock_data.py 
+*>&1 | Out-File -En ...
++                          
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo           
+   : NotSpecified: (INFO:__  
+  main__:C...seeding data.   
+ ..:String) [], RemoteExc    
+eption
+    + FullyQualifiedErrorId  
+   : NativeCommandError
+ 
+INFO:pymongo.serverSelection:
+{"message": "Waiting for 
+suitable server to become 
+available", "selector": 
+"<function 
+writable_server_selector at 
+0x000002D58075E830>", 
+"operation": "delete", 
+"topologyDescription": 
+"<TopologyDescription id: 
+69c4394bb27da004d975f004, 
+topology_type: Unknown, 
+servers: [<ServerDescription 
+('localhost', 27017) 
+server_type: Unknown, rtt: 
+None>]>", "clientId": 
+{"$oid": 
+"69c4394bb27da004d975f004"}, 
+"remainingTimeMS": 30}
+WARNING:passlib.handlers.bcry
+pt:(trapped) error reading 
+bcrypt version
+Traceback (most recent call 
+last):
+  File "C:\Saksham\Work\Hacka
+thons\ET\backend\venv\lib\sit
+e-packages\passlib\handlers\b
+crypt.py", line 620, in 
+_load_backend_mixin
+    version = 
+_bcrypt.__about__.__version__
+AttributeError: module 
+'bcrypt' has no attribute 
+'__about__'
+Traceback (most recent call 
+last):
+  File "C:\Saksham\Work\Hacka
+thons\ET\backend\seed_mock_da
+ta.py", line 126, in <module>
+    asyncio.run(seed_data())
+  File "C:\Program Files\Pyth
+on310\lib\asyncio\runners.py"
+, line 44, in run
+    return 
+loop.run_until_complete(main)
+  File "C:\Program Files\Pyth
+on310\lib\asyncio\base_events
+.py", line 641, in 
+run_until_complete
+    return future.result()
+  File "C:\Saksham\Work\Hacka
+thons\ET\backend\seed_mock_da
+ta.py", line 32, in seed_data
+    "hashed_password": 
+hash_password("password123"),
+  File "C:\Saksham\Work\Hacka
+thons\ET\backend\app\core\sec
+urity.py", line 15, in 
+hash_password
+    return 
+pwd_context.hash(password)
+  File "C:\Saksham\Work\Hacka
+thons\ET\backend\venv\lib\sit
+e-packages\passlib\context.py
+", line 2258, in hash
+    return 
+record.hash(secret, **kwds)
+  File "C:\Saksham\Work\Hacka
+thons\ET\backend\venv\lib\sit
+e-packages\passlib\utils\hand
+lers.py", line 779, in hash
+    self.checksum = 
+self._calc_checksum(secret)
+  File "C:\Saksham\Work\Hacka
+thons\ET\backend\venv\lib\sit
+e-packages\passlib\handlers\b
+crypt.py", line 591, in 
+_calc_checksum
+    
+self._stub_requires_backend()
+  File "C:\Saksham\Work\Hacka
+thons\ET\backend\venv\lib\sit
+e-packages\passlib\utils\hand
+lers.py", line 2254, in 
+_stub_requires_backend
+    cls.set_backend()
+  File "C:\Saksham\Work\Hacka
+thons\ET\backend\venv\lib\sit
+e-packages\passlib\utils\hand
+lers.py", line 2156, in 
+set_backend
+    return 
+owner.set_backend(name, 
+dryrun=dryrun)
+  File "C:\Saksham\Work\Hacka
+thons\ET\backend\venv\lib\sit
+e-packages\passlib\utils\hand
+lers.py", line 2163, in 
+set_backend
+    return 
+cls.set_backend(name, 
+dryrun=dryrun)
+  File "C:\Saksham\Work\Hacka
+thons\ET\backend\venv\lib\sit
+e-packages\passlib\utils\hand
+lers.py", line 2188, in 
+set_backend
+    cls._set_backend(name, 
+dryrun)
+  File "C:\Saksham\Work\Hacka
+thons\ET\backend\venv\lib\sit
+e-packages\passlib\utils\hand
+lers.py", line 2311, in 
+_set_backend
+    
+super(SubclassBackendMixin, 
+cls)._set_backend(name, 
+dryrun)
+  File "C:\Saksham\Work\Hacka
+thons\ET\backend\venv\lib\sit
+e-packages\passlib\utils\hand
+lers.py", line 2224, in 
+_set_backend
+    ok = loader(**kwds)
+  File "C:\Saksham\Work\Hacka
+thons\ET\backend\venv\lib\sit
+e-packages\passlib\handlers\b
+crypt.py", line 626, in 
+_load_backend_mixin
+    return mixin_cls._finaliz
+e_backend_mixin(name, dryrun)
+  File "C:\Saksham\Work\Hacka
+thons\ET\backend\venv\lib\sit
+e-packages\passlib\handlers\b
+crypt.py", line 421, in 
+_finalize_backend_mixin
+    if 
+detect_wrap_bug(IDENT_2A):
+  File "C:\Saksham\Work\Hacka
+thons\ET\backend\venv\lib\sit
+e-packages\passlib\handlers\b
+crypt.py", line 380, in 
+detect_wrap_bug
+    if verify(secret, 
+bug_hash):
+  File "C:\Saksham\Work\Hacka
+thons\ET\backend\venv\lib\sit
+e-packages\passlib\utils\hand
+lers.py", line 792, in verify
+    return consteq(self._calc
+_checksum(secret), chk)
+  File "C:\Saksham\Work\Hacka
+thons\ET\backend\venv\lib\sit
+e-packages\passlib\handlers\b
+crypt.py", line 655, in 
+_calc_checksum
+    hash = 
+_bcrypt.hashpw(secret, 
+config)
+ValueError: password cannot 
+be longer than 72 bytes, 
+truncate manually if 
+necessary (e.g. 
+my_password[:72])
