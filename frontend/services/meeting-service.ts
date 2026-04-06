@@ -146,6 +146,7 @@ export const meetingService = {
     }
 
     const token = localStorage.getItem("autopilot_token")
+    const inputType = file?.type?.startsWith("video") ? "video" : (file?.type?.startsWith("audio") ? "audio" : "text")
     const response = await fetch(`${API_BASE_URL}/meetings/upload`, {
       method: "POST",
       headers: {
@@ -154,7 +155,9 @@ export const meetingService = {
       },
       body: JSON.stringify({
         meeting_id: meetingId,
-        text: `Uploaded ${file.name} | screen_share=${hasScreenShare}`,
+        input_type: inputType,
+        content: "Uploaded " + (file?.name || "") + " (" + (file?.type || "unknown") + ", " + (file?.size || 0) + " bytes)",
+        run_ocr: hasScreenShare,
       }),
     })
 

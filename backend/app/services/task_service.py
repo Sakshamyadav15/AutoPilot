@@ -15,14 +15,13 @@ async def create_task(request: CreateTaskRequest, db: AsyncIOMotorDatabase) -> d
         "assigned_to": request.assigned_to,
         "task": request.task,
         "deadline": request.deadline,
-        "status": request.priority if hasattr(request, "status") else "pending",
+        "status": "pending",
         "priority": request.priority,
         "confidence": request.confidence,
         "created_at": datetime.utcnow(),
         "updated_at": datetime.utcnow(),
     }
-    doc["status"] = "pending"
-    result = await db.tasks.insert_one(doc)
+        result = await db.tasks.insert_one(doc)
     doc["_id"] = result.inserted_id
     task_id = str(result.inserted_id)
 

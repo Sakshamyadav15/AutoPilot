@@ -25,7 +25,7 @@ function mapNotification(raw: any): Notification {
   }
 }
 
-export const notificationService = {
+const API = API_BASE_URL;\n\nexport const notificationService = {
   async getNotifications(): Promise<Notification[]> {
     const userRaw = localStorage.getItem("autopilot_user")
     const userId = userRaw ? JSON.parse(userRaw).id : ""
@@ -54,20 +54,13 @@ export const notificationService = {
     const updated = notifications.map((n) => (n.id === id ? { ...n, read: true } : n))
     setLocalNotifications(updated)
     const found = updated.find((n) => n.id === id)
-    if (!found) {
-      throw new Error("Notification not found")
-    }
-    return found
+    if (!found) {\n    const userRaw = localStorage.getItem("autopilot_user")\n    const userId = userRaw ? JSON.parse(userRaw).id : ""\n    if (!userId || DEMO_FORCE_MOCKS) {\n      const notifications = getLocalNotifications().map((n) => n.id === id ? { ...n, read: true } : n)\n      setLocalNotifications(notifications)\n      const found = notifications.find((n) => n.id === id)\n      if (!found) throw new Error("Notification not found")\n      return found\n    }\n    const resp = await fetch(`${API}/notifications/${id}/read`, { method: "POST", headers: getAuthHeaders() })\n    if (!resp.ok) {\n      const notifications = getLocalNotifications().map((n) => n.id === id ? { ...n, read: true } : n)\n      setLocalNotifications(notifications)\n      const found = notifications.find((n) => n.id === id)\n      if (!found) throw new Error("Notification not found")\n      return found\n    }\n    return mapNotification(await resp.json())
   },
 
-  async markAllAsRead(): Promise<void> {
-    const notifications = getLocalNotifications()
-    setLocalNotifications(notifications.map((n) => ({ ...n, read: true })))
+  async markAllAsRead(): Promise<void> {\n    const userRaw = localStorage.getItem("autopilot_user")\n    const userId = userRaw ? JSON.parse(userRaw).id : ""\n    if (!userId || DEMO_FORCE_MOCKS) {\n      const notifications = getLocalNotifications().map((n) => ({ ...n, read: true }))\n      setLocalNotifications(notifications)\n      return\n    }\n    const resp = await fetch(`${API}/notifications/mark-all-read`, { method: "POST", headers: getAuthHeaders() })\n    if (!resp.ok) {\n      const notifications = getLocalNotifications().map((n) => ({ ...n, read: true }))\n      setLocalNotifications(notifications)\n      return\n    }\n    await this.getNotifications()
   },
 
-  async deleteNotification(id: string): Promise<void> {
-    const notifications = getLocalNotifications().filter((n) => n.id !== id)
-    setLocalNotifications(notifications)
+  async deleteNotification(id: string): Promise<void> {\n    const userRaw = localStorage.getItem("autopilot_user")\n    const userId = userRaw ? JSON.parse(userRaw).id : ""\n    if (userId && !DEMO_FORCE_MOCKS) {\n      await fetch(`${API}/notifications/${id}`, { method: "DELETE", headers: getAuthHeaders() })\n    }\n    const notifications = getLocalNotifications().filter((n) => n.id !== id)\n    setLocalNotifications(notifications)
   },
 
   async getUnreadCount(): Promise<number> {

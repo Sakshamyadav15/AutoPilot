@@ -1,6 +1,15 @@
 // Task Service - API integration layer
 // In production, replace base URL with your actual API endpoint
 
+
+function toUiStatus(s: string): Task["status"] {
+  return s === "in_progress" ? "in-progress" : ((s as Task["status"]) || "pending")
+}
+
+function toApiStatus(s: Task["status"]): string {
+  return s === "in-progress" ? "in_progress" : s
+}
+
 import type { Task } from "@/context/app-context"
 import { API_BASE_URL, DEMO_FORCE_MOCKS, getAuthHeaders } from "@/services/api-config"
 
@@ -13,7 +22,7 @@ function mapTask(raw: any): Task {
     assigneeId: raw.assigned_to || "1",
     assigneeName: raw.assignee_name || "Unassigned",
     deadline: raw.deadline || new Date().toISOString().slice(0, 10),
-    status: raw.status,
+    status: toUiStatus(raw.status),
     meetingId: raw.meeting_id,
   }
 }
@@ -93,7 +102,7 @@ export const taskService = {
       const response = await fetch(`${API_BASE_URL}/tasks/update-status`, {
         method: "PATCH",
         headers: getAuthHeaders(),
-        body: JSON.stringify({ task_id: taskId, status: data.status }),
+        body: JSON.stringify({ task_id: taskId, status: toApiStatus(data.status as Task["status"]) }),
       })
 
       if (!response.ok) {

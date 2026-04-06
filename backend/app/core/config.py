@@ -1,11 +1,13 @@
-from pydantic_settings import BaseSettings
+from pydantic_settings import BaseSettings, SettingsConfigDict
 from functools import lru_cache
 
 
 class Settings(BaseSettings):
+    model_config = SettingsConfigDict(env_file=".env", extra="ignore")
+
     APP_NAME: str = "AutoPilot"
     APP_VERSION: str = "1.0.0"
-    DEBUG: bool = True
+    APP_DEBUG: bool = True
 
     MONGO_URI: str = "mongodb://localhost:27017"
     MONGO_DB_NAME: str = "autopilot"
@@ -18,9 +20,6 @@ class Settings(BaseSettings):
     GROQ_MODEL: str = "llama3-70b-8192"
 
     MONITOR_INTERVAL_SECONDS: int = 60
-
-    class Config:
-        env_file = ".env"
 
 
 @lru_cache()
